@@ -45,6 +45,7 @@
         </c:choose>
 
         <div class="form-row mt-2">
+            <input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
             <div class="col-md-3">
                 <button type="submit" class="btn btn-primary">${msg.get("form.btn.save")}</button>
             </div>

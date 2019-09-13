@@ -7,6 +7,7 @@ import javax.mvc.Controller;
 import javax.mvc.Models;
 import javax.mvc.binding.BindingResult;
 import javax.mvc.binding.MvcBinding;
+import javax.mvc.security.CsrfProtected;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.ws.rs.DELETE;
@@ -85,6 +86,7 @@ public class BookingController {
     }
 
     @POST
+    @CsrfProtected
     public String createNewBooking(@FormParam("name") @MvcBinding @NotBlank @Size(min = 5, max = 255) final String name) {
         if (bindingResult.isFailed()) {
             models.put("errors", new ArrayList<>(bindingResult.getAllErrors()));
@@ -98,6 +100,7 @@ public class BookingController {
 
     @DELETE
     @Path("/{bookingNumber}")
+    @CsrfProtected
     public String cancelBooking(@PathParam("bookingNumber") final UUID bookingNumber) {
         final var isCancelled = bookingService.cancelBooking(bookingNumber);
 
